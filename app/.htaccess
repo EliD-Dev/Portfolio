@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Exclure un convert.php de la redirection
+# RewriteCond %{REQUEST_URI} !^/convert\.php$ [NC]
+
+# Redirection externe de "fichier.php" vers "fichier" (URL visible)
+RewriteCond %{THE_REQUEST} "^[^ ]*\s/+(.+?)\.php[?\s]" [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Réécriture interne : si "fichier" est demandé et que "fichier.php" existe, alors on le charge
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]

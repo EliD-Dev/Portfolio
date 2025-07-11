@@ -20,7 +20,8 @@ RUN apt-get update && \
     echo "memory_limit=512M" >> /usr/local/etc/php/conf.d/uploads.ini && \
     echo "max_execution_time=300" >> /usr/local/etc/php/conf.d/uploads.ini && \
     echo "expose_php = Off" > /usr/local/etc/php/conf.d/custom.ini && \
-    echo "display_errors = Off" >> /usr/local/etc/php/conf.d/custom.ini
+    echo "display_startup_errors = Off" >> /usr/local/etc/php/conf.d/custom.ini && \
+    echo "disable_functions = phpinfo, system, exec, shell_exec, passthru" >> /usr/local/etc/php/conf.d/security.ini
 
 WORKDIR /var/www/html
 

@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();  // Démarre la session seulement si elle n'est pas déjà active
 }
 
-define('BASE_URL', 'http://localhost:8085/');
+define('BASE_URL', 'http://localhost:'.getenv('WEB_PORT').'/');
 
 setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
 date_default_timezone_set('Europe/Paris');
