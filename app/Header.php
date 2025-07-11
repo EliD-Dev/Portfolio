@@ -3,6 +3,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();  // Démarre la session seulement si elle n'est pas déjà active
 }
 
+require "dbconnect.php";
+$connexionDB = Database::getInstance();
+
 define('BASE_URL', 'http://localhost:'.getenv('WEB_PORT').'/');
 
 setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
@@ -66,7 +69,7 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
     <link rel="canonical" href="<?= $canonical_url ?>">
     <link rel="icon" href="<?= BASE_URL ?>images/Logo_EliDev.webp" type="image/x-icon">
     <link rel="stylesheet" href="<?= BASE_URL ?>styles/global.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
 
     <!-- Schema.org -->
@@ -84,11 +87,12 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="<?= BASE_URL ?>">Accueil</a></li>
-                <li><a href="<?= BASE_URL ?>">Projets</a></li>
-                <li><a href="<?= BASE_URL ?>">Contact</a></li>
-            </ul>
+            <a href="<?= BASE_URL ?>"><img src="<?= BASE_URL ?>images/Logo_EliDev.webp" alt="Logo EliDev" class="logo"></a>
+            <div>
+                <a href="<?= BASE_URL ?>">Projets</a>
+                <a href="<?= BASE_URL ?>">Compétences</a>
+                <a href="<?= BASE_URL ?>">Contact</a>
+            </div>
         </nav>
     </header>
 

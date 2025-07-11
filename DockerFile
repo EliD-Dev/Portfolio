@@ -23,8 +23,6 @@ RUN apt-get update && \
     echo "display_startup_errors = Off" >> /usr/local/etc/php/conf.d/custom.ini && \
     echo "disable_functions = phpinfo, system, exec, shell_exec, passthru" >> /usr/local/etc/php/conf.d/security.ini
 
-WORKDIR /var/www/html
-
 EXPOSE 80
 
 RUN chown -R www-data:www-data /var/www/html
