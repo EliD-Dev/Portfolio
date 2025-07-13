@@ -1,6 +1,16 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'secure' => true,   // nécessite HTTPS
+        'httponly' => true,
+        'samesite' => 'Strict'
+    ]);
     session_start();  // Démarre la session seulement si elle n'est pas déjà active
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
 }
 
 require "dbconnect.php";
@@ -89,13 +99,21 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
         <nav>
             <a href="<?= BASE_URL ?>"><img src="<?= BASE_URL ?>images/Logo_EliDev.webp" alt="Logo EliDev" class="logo"></a>
             <div>
-                <a href="<?= BASE_URL ?>">Projets</a>
-                <a href="<?= BASE_URL ?>">Compétences</a>
-                <a href="<?= BASE_URL ?>">Contact</a>
+                <a href="<?= BASE_URL ?>#projets">Projets</a>
+                <a href="<?= BASE_URL ?>#competences">Compétences</a>
+                <a href="<?= BASE_URL ?>#contact">Contact</a>
             </div>
         </nav>
     </header>
 
     <?php
-    // Include any additional scripts or styles here
+        // Fonction pour générer un slug à partir d'un titre
+        function slugify($text) {
+            // Remplace les accents, caractères spéciaux, etc.
+            $text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+            $text = preg_replace('/[^a-zA-Z0-9\/_| -]/', '', $text);
+            $text = strtolower(trim($text, '-'));
+            $text = preg_replace('/[\/_| -]+/', '-', $text);
+            return $text;
+        }
     ?>
