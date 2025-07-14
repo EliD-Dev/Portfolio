@@ -17,10 +17,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 
 <main>
     <h1>Bienvenue dans l'espace administrateur</h1>
-    <p>Contenu secret réservé aux administrateurs.</p>
+    <h2>Gestion de mon Portfolio</h2>
+
+    <div class="admin-dashboard">
+        <h3>CRUD</h3>
+        <p>Vous pouvez créer, lire, mettre à jour et supprimer les éléments suivants :</p>
+        <div class="crud-buttons">
+            <button onclick="window.location.href='projetsCRUD';">Projets</button>
+            <button onclick="window.location.href='competencesCRUD';">Compétences</button>
+        </div>
+    </div>
+
     <!-- Ajoutez ici un bouton ou un lien pour déconnexion -->
     <form action="espaceAdminSecret" method="post">
-        <button type="submit" name="logout">Se déconnecter</button>
+        <button type="submit" name="logout" class="logout-button">Se déconnecter</button>
     </form>
 </main>
 

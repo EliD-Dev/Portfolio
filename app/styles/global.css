@@ -1,8 +1,11 @@
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh; /* pour s'assurer que le body prend au moins la hauteur de la fenêtre */
     font-family: 'Roboto', sans-serif;
     background-color: #fefeff;
     font-size: 1rem; /* base */
@@ -10,6 +13,8 @@ body {
 
 html {
     scroll-behavior: smooth; /* smooth scrolling */
+    height: 100%;
+    margin: 0;
 }
 
 nav {
@@ -52,14 +57,11 @@ nav a:hover {
     color: #0f98b1;
 }
 
-.cacher {
-    display: none;
-}
-
 main {
     display: flex;
     flex-direction: column;
     padding: 2rem;
+    flex: 1; /* take remaining space */
 }
 
 h1 {
@@ -89,16 +91,39 @@ p {
 }
 
 footer {
-    text-align: center;
-    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem; /* pour les éléments quand ça passe en colonne */
+    padding: 2rem;
     background-color: #0d3969;
     color: white;
+    text-align: center; /* par défaut pour le <p> */
+}
+
+footer div {
+    display: flex;
+    gap: 2rem;
 }
 
 footer p {
     margin: 0;
     color: #fefeff;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #0f98b1;
 }
 
 .présentation {
@@ -238,9 +263,41 @@ footer p {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: 2rem;
+}
+
+.competence-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #0d3969;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.competence-item:hover {
+    transform: translateY(-5px);
+}
+
+.competence-item img {
+    width: 200px;
+    height: 150px;
+    max-width: 200px;
+    max-height: 150px;
+    margin-bottom: 1rem;
+}
+
+.competence-item p {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    margin: 0;
+    margin-top: 0.5rem;
+    text-align: center;
 }
 
 .contact-container {
@@ -279,6 +336,10 @@ footer p {
     flex-direction: column;
 }
 
+.contact-form .form-group.cacher {
+    display: none;
+}
+
 .contact-form label {
     font-size: clamp(1.2rem, 1.5vw, 1.5rem);
     color: #ffffff;
@@ -287,6 +348,8 @@ footer p {
 
 .contact-form input[type="text"],
 .contact-form input[type="email"],
+.contact-form input[type="url"],
+.contact-form input[type="date"],
 .contact-form textarea {
     padding: 0.5rem;
     border: 2px solid #0d3969;
@@ -298,7 +361,6 @@ footer p {
     padding: 0.5rem;
     border: none;
     border-radius: 8px;
-    margin-bottom: 1rem;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: #0d3969;
     background-color: #ffffff;
@@ -313,6 +375,7 @@ footer p {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    margin-top: 2rem;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -343,9 +406,364 @@ footer p {
     color: #721c24;
 }
 
+.form-message.error.afficher {
+    display: block;
+}
+
 .form-message.success {
     background-color: #d4edda;
     color: #155724;
+}
+
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 380px;
+    gap: 1rem;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #0e698d;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.admin-login-form .form-group-admin,
+.admin-login-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.admin-login-form label {
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: #ffffff;
+}
+.admin-login-form input[type="text"],
+.admin-login-form input[type="password"],
+.admin-login-form input[type="email"],
+.admin-login-form input[type="url"],
+.admin-login-form input[type="date"],
+.admin-login-form textarea {
+    padding: 0.5rem;
+    border: 2px solid #0d3969;
+    border-radius: 8px;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    width: 100%;
+    box-sizing: border-box; /* ensure padding is included in width */
+}
+
+.admin-login-form input[type="file"] {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: #0d3969;
+    width: 100%;
+    box-sizing: border-box; /* ensure padding is included in width */
+    background-color: #ffffff;
+}
+
+.admin-login-form input:focus {
+    border-color: #0f98b1;
+    outline: none;
+}
+
+.admin-login-form button {
+    background-color: #ffffff;
+    color: #0d3969;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border: none;
+    margin-top: 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-login-form button:hover {
+    background-color: #0f98b1;
+    color: #ffffff;
+}
+
+.logout-button {
+    display: flex;
+    background-color: #ff5d5d;
+    color: #ffffff;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border: 2px solid #ff5d5d;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #ffffff;
+    color: #0d3969;
+}
+
+.modal-preview,
+.modal-form {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-preview div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.modal-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+}
+
+.modal-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-button {
+    margin-top: 10px;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0d3969;
+    color: white;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-button:hover {
+    background-color: #0f98b1;
+    color: #ffffff;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#projet-form {
+    min-width: 90%;
+    width: 90%;
+    max-width: 90%;
+}
+
+.admin-back-button {
+    background-color: #5D9CEC;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: fit-content;
+}
+
+.admin-back-button:hover {
+    background-color: #4a89dc;
+    color: #ffffff;
+}
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.crud-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.crud-buttons button {
+    background-color: #0d3969;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.crud-buttons button:hover {
+    background-color: #0f98b1;
+    color: #ffffff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    position: sticky;
+    top: 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styles pour les boutons */
+table button,
+.bouton-ajouter-mobile button {
+    padding: 8px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+table button:hover,
+.bouton-ajouter-mobile button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+table button i,
+.bouton-ajouter-mobile button i {
+    margin-right: 0;
+    font-size: 14px;
+}
+
+button:has(.fa-plus) {
+    background-color: #4CAF50; /* Vert */
+    color: white;
+}
+
+button:has(.fa-plus):hover {
+    background-color: #3e8e41;
+}
+
+button:has(.fa-image) {
+    background-color: #2196F3; /* Bleu */
+    color: white;
+}
+
+button:has(.fa-image):hover {
+    background-color: #0b7dda;
+}
+
+button:has(.fa-eye) {
+    background-color: #00BCD4; /* Cyan */
+    color: white;
+}
+
+button:has(.fa-eye):hover {
+    background-color: #0097a7;
+}
+
+button:has(.fa-edit) {
+    background-color: #ffa807ff; /* Jaune */
+    color: white;
+}
+
+button:has(.fa-edit):hover {
+    background-color: #e59400; /* Jaune foncé */
+}
+
+button:has(.fa-trash) {
+    background-color: #F44336; /* Rouge */
+    color: white;
+}
+
+button:has(.fa-trash):hover {
+    background-color: #d32f2f;
+}
+
+/* Styles pour les liens */
+table a {
+    color: #0066cc;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+table a:hover {
+    text-decoration: underline;
+    color: #004499;
+}
+
+form[onsubmit] {
+    display: inline;
+}
+
+/* Style pour les cellules avec des liens longs */
+td:nth-child(5) {
+    max-width: 200px;
+    word-break: break-word;
+}
+
+/* Amélioration de l'affichage des cellules */
+td:nth-child(2) {
+    max-width: 300px;
+    white-space: normal;
+}
+
+.bouton-ajouter-mobile {
+    display: none;
 }
 
 @media screen and (max-width: 900px) {
@@ -377,5 +795,47 @@ footer p {
         max-width: 100%; /* allow full width on smaller screens */
         margin: 0;
         flex: none;
+    }
+}
+    
+
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+        padding: 10px;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .bouton-ajouter-mobile {
+        display: block; /* show the add button on mobile */
+        margin: 1rem auto; /* center align and add margin */
     }
 }

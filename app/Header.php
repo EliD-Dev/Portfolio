@@ -6,11 +6,18 @@ if (session_status() == PHP_SESSION_NONE) {
         'samesite' => 'Strict'
     ]);
     session_start();  // Démarre la session seulement si elle n'est pas déjà active
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Génère un token CSRF sécurisé
 }
 
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
+}
+
+if (!isset($_SESSION['last_contact'])) {
+    $_SESSION['last_contact'] = 0; // Initialise le timestamp de la dernière soumission
 }
 
 require "dbconnect.php";

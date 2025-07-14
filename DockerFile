@@ -4,11 +4,17 @@ RUN apt-get update && \
     apt-get install -y \
         # Install required packages
         curl \
-        unzip && \
+        unzip \
+        libpng-dev \
+        libjpeg-dev \
+        libfreetype6-dev \
+        libwebp-dev \
+        libgif-dev && \
+    docker-php-ext-configure gd --with-webp --with-jpeg --with-freetype && \
+    # Install PHP extensions
+    docker-php-ext-install pdo pdo_mysql gd && \
     # Clean up apt cache
     rm -rf /var/lib/apt/lists/* && \
-    # Install PHP extensions
-    docker-php-ext-install pdo pdo_mysql && \
     # Install and enable Apache modules
     a2enmod rewrite && \
     echo "ServerSignature Off\nServerTokens Prod" > /etc/apache2/conf-available/security.conf && \

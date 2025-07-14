@@ -12,6 +12,7 @@ services:
       GOOGLE_EMAIL: ${GOOGLE_EMAIL}
       GOOGLE_PASSWORD_APP: ${GOOGLE_PASSWORD_APP}
       PASSWORD_ADMIN: ${PASSWORD_ADMIN}
+      TINYMCE_API_KEY: ${TINYMCE_API_KEY}
       WEB_PORT: ${WEB_PORT}
     volumes:
       - ./app:/var/www/html

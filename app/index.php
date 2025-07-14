@@ -105,7 +105,10 @@
                     <input type="hidden" name="MAX_FILE_SIZE" value="314572800">
                     <input type="file" id="pièce_jointe" name="pièce_jointe">
                 </div>
-                
+                <div class="form-group cacher">
+                    <label for="website">Site web :</label>
+                    <input type="text" id="website" name="website">
+                </div>
                 <button type="submit" id="submit-button">Envoyer</button>
             </form>
         </div>

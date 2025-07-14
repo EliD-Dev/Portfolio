@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require 'Header.php';
 
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
@@ -14,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'] ?? '';
         $passwordAdmin = getenv('PASSWORD_ADMIN') ?: $_ENV["PASSWORD_ADMIN"];
         if ($password === $passwordAdmin) {
-            session_regenerate_id(true); // prévient la fixation
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                session_regenerate_id(true);
+            }
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['login_attempts'] = 0; // reset compteur
             echo "<script>window.location.href='espace-admin-secret/espaceAdminSecret.php';</script>";
@@ -25,18 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+ob_end_flush();
 ?>
 
 <main>
     <h1>Connexion à l'espace administrateur</h1>
 
-    <?php if (!empty($error_message)) : ?>
-        <p style="color:red;"><?php echo htmlspecialchars($error_message); ?></p>
-    <?php endif; ?>
-
     <?php if ($_SESSION['login_attempts'] < 5): ?>
-    <form action="admin" method="post">
-        <div>
+    <form action="admin" method="post" class="admin-login-form">
+        <?php if (!empty($error_message)) : ?>
+            <div id="form-message" class="form-message error afficher"><?= htmlspecialchars($error_message); ?></div>
+        <?php endif; ?>
+        <div class="form-group-admin">
             <label for="password">Mot de passe :</label>
             <input type="password" id="password" name="password" required>
         </div>

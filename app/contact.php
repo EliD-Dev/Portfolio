@@ -6,6 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
+if (!empty($_POST['website'])) {
+    echo "Bot détecté.";
+    exit;
+}
+
 if (session_status() == PHP_SESSION_NONE) {
     session_set_cookie_params([
         'secure' => true,   // nécessite HTTPS
@@ -18,6 +23,14 @@ if (!isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_
     echo "Token CSRF invalide";
     exit;
 }
+unset($_SESSION['csrf_token']);
+
+$now = time();
+if (isset($_SESSION['last_contact']) && $now - $_SESSION['last_contact'] < 30) {
+    echo "Trop de requêtes. Veuillez patienter avant de réessayer.";
+    exit;
+}
+$_SESSION['last_contact'] = $now;
 
 // Récupération + validation des champs
 $name    = htmlspecialchars(trim($_POST["name"]    ?? ""));

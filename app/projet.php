@@ -31,7 +31,7 @@ if (!$projet) {
         <p><strong>Date :</strong> <?= htmlspecialchars($projet['date']); ?></p>
         <p><strong>Type :</strong> <?= htmlspecialchars($projet['type']); ?></p>
     </div>
-    <?= htmlspecialchars($projet['contenu']); ?>
+    <?= $projet['contenu'] ?>
     <p><a href="<?= htmlspecialchars($projet['url']); ?>" target="_blank">Voir le projet en ligne</a></p>
 </main>
 
