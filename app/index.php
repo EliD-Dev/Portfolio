@@ -21,7 +21,7 @@
         <div class="projets-list">
             <?php
             // Exemple de récupération de projets depuis la base de données
-            $requete = $connexionDB->prepare("SELECT titre, imagePath, description FROM Projets ORDER BY date DESC");
+            $requete = $connexionDB->prepare("SELECT titre, imagePath, description, type FROM Projets ORDER BY date DESC");
             $requete->execute();
             $projets = $requete->fetchAll(PDO::FETCH_ASSOC);
             $requete->closeCursor();
@@ -30,6 +30,7 @@
                 echo '<div class="projet">';
                 echo '  <img src="' . htmlspecialchars($projet['imagePath']) . '" alt="' . htmlspecialchars($projet['titre']) . '">';
                 echo '  <h4>' . htmlspecialchars($projet['titre']) . '</h4>';
+                echo '  <p><strong>Type :</strong> ' . htmlspecialchars($projet['type']) . '</p>';
                 echo '  <p>' . htmlspecialchars($projet['description']) . '</p>';
                 echo '  <p><a href="./projet/' . urlencode(slugify($projet['titre'])) . '">Voir le projet</a></p>';
                 echo '</div>';
@@ -49,6 +50,10 @@
             // Grouper par type
             $groupes = [];
             foreach ($competences as $competence) {
+                // si le type est BDD on le transforme en Base de données
+                if ($competence['type'] === 'BDD') {
+                    $competence['type'] = 'Base de donnée';
+                }
                 $groupes[$competence['type']][] = $competence;
             }
 

@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $originalName = basename($_FILES['logoPath']['name']);
+        $originalName = str_replace(' ', '_', $originalName);
         $originalPath = $targetDir . $originalName;
 
         // Déplacer le fichier uploadé
@@ -193,7 +194,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-group">
                 <label for="type">Type :</label>
-                <input type="text" id="type" name="type" required>
+                <select name="type" id="type">
+                    <option disabled selected value>-- Sélectionner un type --</option>
+                    <option value="Langage">Langage</option>
+                    <option value="BDD">Base de données</option>
+                    <option value="Framework">Framework</option>
+                    <option value="Outil">Outil</option>
+                </select>
             </div>
             <button type="submit" id="competence-form-submit">Ajouter la compétence</button>
         </form>

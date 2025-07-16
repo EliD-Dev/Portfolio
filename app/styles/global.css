@@ -90,6 +90,15 @@ p {
     margin-top: 1rem;
 }
 
+ul {
+    padding-left: 2rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
 footer {
     display: flex;
     justify-content: space-between;
@@ -198,8 +207,9 @@ footer a:hover {
 }
 
 .projets-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1.5rem;
 }
 
@@ -210,6 +220,8 @@ footer a:hover {
     padding: 1rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
+    flex: 1 1 calc(25% - 1.5rem); /* pour quatre projets par ligne */
+    margin-bottom: 1.5rem; /* pour l'espacement entre les lignes */
 }
 
 .projet:hover {
@@ -217,9 +229,12 @@ footer a:hover {
 }
 
 .projet img {
-    width: 100%;
-    height: auto;
+    max-width: 100%; /* pour une image responsive */
+    height: 250px; /* pour une image responsive */
+    max-height: 250px; /* pour une image responsive */
     border-radius: 8px;
+    display: block; /* pour centrer l'image */
+    margin: 0 auto; /* pour centrer l'image */
 }
 
 .projet h4 {
@@ -253,10 +268,86 @@ footer a:hover {
     background-color: #0e698d;
 }
 
+.projet-detail button {
+    background-color: #0d3969;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto; /* centrer le bouton */
+    margin-bottom: 2rem; /* pour l'espacement en bas */
+}
+
+.projet-detail button:hover {
+    color: #ffffff;
+    background-color: #0f98b1;
+}
+
+.projet-detail img {
+    max-width: 500px; /* responsive image */
+    height: auto;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.projet-detail .projet-lien {
+    text-decoration: none;
+    background-color: #0f98b1;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    margin: 1rem auto; /* centrer le lien */
+}
+
+.projet-detail .projet-lien:hover {
+    color: #ffffff;
+    background-color: #0e698d;
+}
+
+.projet-contenu a {
+    color: #0d3969;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: color 0.3s ease;
+}
+
+.projet-contenu a:hover {
+    color: #0f98b1;
+}
+
 .ligne {
     display: flex;
     flex-direction: row;
     gap: 3rem;
+}
+
+.competence-type {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.competence-type h4 {
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: #0d3969;
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
 .competence-groupe {
@@ -277,6 +368,8 @@ footer a:hover {
     color: #0d3969;
     border-radius: 8px;
     padding: 1rem;
+    width: 200px;
+    max-width: 200px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
 }
@@ -286,10 +379,9 @@ footer a:hover {
 }
 
 .competence-item img {
-    width: 200px;
+    display: flex;
     height: 150px;
     max-width: 200px;
-    max-height: 150px;
     margin-bottom: 1rem;
 }
 
@@ -447,6 +539,7 @@ footer a:hover {
 .admin-login-form input[type="email"],
 .admin-login-form input[type="url"],
 .admin-login-form input[type="date"],
+.admin-login-form select,
 .admin-login-form textarea {
     padding: 0.5rem;
     border: 2px solid #0d3969;
@@ -531,7 +624,6 @@ footer a:hover {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    text-align: center;
 }
 
 .modal-preview img {
@@ -837,5 +929,26 @@ td:nth-child(2) {
     .bouton-ajouter-mobile {
         display: block; /* show the add button on mobile */
         margin: 1rem auto; /* center align and add margin */
+    }
+
+    .competence-item {
+        width: 35%; /* full width on mobile */
+        max-width: 35%; /* remove max-width */
+        margin-bottom: 1rem; /* add margin for spacing */
+    }
+
+    .competence-item img {
+        max-width: 100%; /* responsive image */
+        height: 120px; /* maintain aspect ratio */
+    }
+
+    .projet-detail img {
+        max-width: 95%; /* responsive image */
+        height: auto; /* maintain aspect ratio */
+    }
+
+    footer {
+        flex-direction: column; /* stack footer items vertically */
+        align-items: center; /* center align items */
     }
 }

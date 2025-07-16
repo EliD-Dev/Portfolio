@@ -25,14 +25,17 @@ if (!$projet) {
 }
 ?>
 
-<main>
+<main class="projet-detail">
+    <button onclick="window.location.href='<?= BASE_URL; ?>#projets'">Retour</button>
     <h1><?= htmlspecialchars($projet['titre']); ?></h1>
     <div class="ligne">
         <p><strong>Date :</strong> <?= htmlspecialchars($projet['date']); ?></p>
         <p><strong>Type :</strong> <?= htmlspecialchars($projet['type']); ?></p>
     </div>
-    <?= $projet['contenu'] ?>
-    <p><a href="<?= htmlspecialchars($projet['url']); ?>" target="_blank">Voir le projet en ligne</a></p>
+    <div class="projet-contenu">
+        <?= $projet['contenu'] ?>
+    </div>
+    <p><a class="projet-lien" href="<?= htmlspecialchars($projet['url']); ?>" target="_blank">Voir le projet en ligne</a></p>
 </main>
 
 <?php require 'Footer.php'; ?>

@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $originalName = basename($_FILES['imagePath']['name']);
+        $originalName = str_replace(' ', '_', $originalName);
         $originalPath = $targetDir . $originalName;
 
         // Déplacer le fichier uploadé
@@ -186,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button onclick="previewImage('<?= htmlspecialchars($projet['imagePath']); ?>');"><i class="fas fa-image"></i></button>
                     </td>
                     <td data-label="Contenu">
-                        <button onclick='viewProject(<?= json_encode($projet["contenu"]); ?>);'>
+                        <button onclick='viewProject(<?= json_encode($projet["contenu"], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>);'>
                             <i class="fas fa-eye"></i>
                         </button>
                     </td>
@@ -239,7 +240,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-group">
                 <label for="type">Type :</label>
-                <input type="text" id="type" name="type">
+                <select name="type" id="type">
+                    <option disabled selected value>-- Sélectionner un type --</option>
+                    <option value="Web">Web</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Desktop">Desktop</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="url">URL :</label>
