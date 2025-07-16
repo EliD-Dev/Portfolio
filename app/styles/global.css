@@ -206,11 +206,34 @@ footer a:hover {
     color: white;
 }
 
+.projets-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .projets-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1.5rem;
+    justify-content: center; /* pour centrer les projets */
+    flex: 1; /* Pour que la liste des projets prenne tout l'espace disponible entre les flèches */
+}
+
+.projet-nav-left, .projet-nav-right {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    cursor: pointer;
+    color: white;
+}
+
+.projet-nav-left:hover, .projet-nav-right:hover {
+    color: #0f98b1;
 }
 
 .projet {
@@ -220,7 +243,7 @@ footer a:hover {
     padding: 1rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
-    flex: 1 1 calc(25% - 1.5rem); /* pour quatre projets par ligne */
+    flex: 0 0 calc(30% - 1.5rem); /* Pour trois projets par ligne */
     margin-bottom: 1.5rem; /* pour l'espacement entre les lignes */
 }
 
@@ -267,6 +290,69 @@ footer a:hover {
     color: #ffffff;
     background-color: #0e698d;
 }
+
+.projet-nav-left {
+    background-color: #0d3969;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 1rem; /* pour l'espacement à droite */
+    border: none;
+    position: relative;
+    left: 0; /* pour l'alignement */
+}
+
+.projet-nav-left:hover {
+    color: #ffffff;
+    background-color: #0f98b1;
+}
+
+.projet-nav-right {
+    background-color: #0d3969;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 1rem; /* pour l'espacement à gauche */
+    border: none;
+    position: relative;
+    right: 0; /* pour l'alignement */
+}
+
+.projet-nav-right:hover {
+    color: #ffffff;
+    background-color: #0f98b1;
+}
+
+@media (max-width: 1000px) {
+    .projet {
+        flex: 0 0 calc(40% - 1.5rem); /* Pour deux projets par ligne */
+    }
+    .projet img {
+        height: 200px; /* pour une image responsive */
+        max-height: 200px; /* pour une image responsive */
+    }
+}
+
+@media (max-width: 710px) {
+    .projet {
+        flex: 0 0 calc(80% - 1.5rem); /* Pour un projet par ligne */
+    }
+    .projet img {
+        height: 150px; /* pour une image responsive */
+        max-height: 150px; /* pour une image responsive */
+    }
+}
+
 
 .projet-detail button {
     background-color: #0d3969;

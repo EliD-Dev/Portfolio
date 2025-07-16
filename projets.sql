@@ -26,7 +26,7 @@ CREATE TABLE Projets (
 
 -- Insérer des données dans la table Projets
 INSERT INTO Projets (titre, description, date, type, url, imagePath, contenu) VALUES
-('Site web Salon Vins et Saveurs', 'Création complète du site vitrine et de l\'espace exposants pour la première édition du Salon Vins et Saveurs organisé par le Kiwanis Saint-Dié-des-Vosges.', '2025-05-17', 'Web', 'https://vins-et-saveurs.com', '/images-projets/Logo_Salon.webp', '<h2>Contexte du projet</h2>
+('Site web Salon Vins et Saveurs', 'Création complète du site vitrine et de l\'espace exposants pour la première édition du Salon Vins et Saveurs organisé par le Kiwanis Saint-Dié-des-Vosges.', '2025-04-11', 'Web', 'https://vins-et-saveurs.com', '/images-projets/Logo_Salon.webp', '<h2>Contexte du projet</h2>
     <p>Ce projet a été réalisé durant mon stage de 8 semaines au sein du Kiwanis Saint-Dié-des-Vosges, du 17 février au 11 avril 2025. L\'objectif était de créer un site web complet pour promouvoir et gérer le <strong>Salon Vins et Saveurs</strong>, un nouvel événement destiné à financer des actions en faveur des enfants.</p>
 
     <h2>Fonctionnalités principales</h2>
@@ -52,7 +52,7 @@ INSERT INTO Projets (titre, description, date, type, url, imagePath, contenu) VA
     </ul>
 
     <h2>Résultat</h2>
-    <p>Le site est en production depuis mars 2025 et géré en autonomie par les bénévoles du Kiwanis, qui actualisent directement les contenus et suivent la billetterie depuis l\'interface d\'administration.</p>'),
+    <p>Le site est en production depuis avril 2025 et géré en autonomie par les bénévoles du Kiwanis, qui actualisent directement les contenus et suivent la billetterie depuis l\'interface d\'administration.</p>'),
 (
     'Jeu 2D plateforme - Marouxo',
     'Création d\'un jeu vidéo 2D en Python avec Pygame, inspiré des jeux Mario, réalisé en terminale.',
@@ -88,7 +88,7 @@ INSERT INTO Projets (titre, description, date, type, url, imagePath, contenu) VA
 (
     'Pokédex SwiftUI (fusion app cinéma)',
     'Développement d\'un Pokédex complet en SwiftUI intégré dans une application existante pour créer un hub multi-thèmes.',
-    '2024-05-23',
+    '2025-05-23',
     'Mobile',
     'https://github.com/Med-css/cinema',
     '/images-projets/pokeapi.webp',
@@ -113,6 +113,35 @@ INSERT INTO Projets (titre, description, date, type, url, imagePath, contenu) VA
 
     <h2>Résultat</h2>
     <p>Cette fusion démontre la capacité à étendre et interconnecter des modules indépendants dans une seule application SwiftUI fluide et responsive.</p> '
+),
+(
+    'WikiCoaster (Symfony)',
+    'Projet de 2ᵉ année de BUT Informatique, destiné à l\'apprentissage et la mise en pratique du framework Symfony, à travers la gestion de montagnes russes et de parcs d\'attraction.',
+    '2025-01-22',
+    'Web',
+    'https://github.com/EliD-Dev/WikiCoaster',
+    '/images-projets/WikiCoaster.webp',
+    '<h2>Contexte du projet</h2>
+    <p>Projet réalisé dans le cadre de ma 2<sup>ème</sup> année de BUT Informatique, visant à maîtriser Symfony et ses concepts avancés. L\'objectif était de développer un site web complet en local pour gérer des fiches de montagnes russes et des parcs d\'attraction.</p>
+
+    <h2>Fonctionnalités principales</h2>
+    <ul>
+        <li><strong>CRUD complet</strong> sur les coasters et les parcs via Symfony et Doctrine.</li>
+        <li><strong>Interface administrateur</strong> grâce à EasyAdminBundle pour gérer facilement les données.</li>
+        <li><strong>Pages publiques</strong> permettant la consultation des coasters, parcs, fabricants, pays et types.</li>
+        <li><strong>Recherche et filtrage dynamique</strong> des coasters par type, pays ou constructeur.</li>
+    </ul>
+
+    <h2>Aspects techniques</h2>
+    <ul>
+        <li>Utilisation du framework <strong>Symfony 6.4</strong> et du moteur de templates <strong>Twig</strong>.</li>
+        <li>Mapping des entités avec <strong>Doctrine ORM</strong> et gestion des migrations.</li>
+        <li>Base de données relationnelle <strong>MySQL</strong>.</li>
+        <li>Form validation et routing avancé via annotations.</li>
+    </ul>
+
+    <h2>Résultat</h2>
+    <p>Ce projet m\'a permis de consolider mes compétences en PHP moderne, en conception MVC et en manipulation de bases relationnelles, tout en produisant un site robuste et évolutif.</p>'
 );
 
 

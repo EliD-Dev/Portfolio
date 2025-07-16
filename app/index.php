@@ -18,24 +18,28 @@
     </section>
     <section class="projets" id="projets">
         <h3>Mes Projets</h3>
-        <div class="projets-list">
-            <?php
-            // Exemple de récupération de projets depuis la base de données
-            $requete = $connexionDB->prepare("SELECT titre, imagePath, description, type FROM Projets ORDER BY date DESC");
-            $requete->execute();
-            $projets = $requete->fetchAll(PDO::FETCH_ASSOC);
-            $requete->closeCursor();
+        <div class="projets-container">
+            <button class="projet-nav-left" style="display: none;">&lt;</button>
+            <div class="projets-list">
+                <?php
+                // Exemple de récupération de projets depuis la base de données
+                $requete = $connexionDB->prepare("SELECT titre, imagePath, description, type FROM Projets ORDER BY date DESC");
+                $requete->execute();
+                $projets = $requete->fetchAll(PDO::FETCH_ASSOC);
+                $requete->closeCursor();
 
-            foreach ($projets as $projet) {
-                echo '<div class="projet">';
-                echo '  <img src="' . htmlspecialchars($projet['imagePath']) . '" alt="' . htmlspecialchars($projet['titre']) . '">';
-                echo '  <h4>' . htmlspecialchars($projet['titre']) . '</h4>';
-                echo '  <p><strong>Type :</strong> ' . htmlspecialchars($projet['type']) . '</p>';
-                echo '  <p>' . htmlspecialchars($projet['description']) . '</p>';
-                echo '  <p><a href="./projet/' . urlencode(slugify($projet['titre'])) . '">Voir le projet</a></p>';
-                echo '</div>';
-            }
-            ?>
+                foreach ($projets as $projet) {
+                    echo '<div class="projet">';
+                    echo '  <img src="' . htmlspecialchars($projet['imagePath']) . '" alt="' . htmlspecialchars($projet['titre']) . '">';
+                    echo '  <h4>' . htmlspecialchars($projet['titre']) . '</h4>';
+                    echo '  <p><strong>Type :</strong> ' . htmlspecialchars($projet['type']) . '</p>';
+                    echo '  <p>' . htmlspecialchars($projet['description']) . '</p>';
+                    echo '  <p><a href="./projet/' . urlencode(slugify($projet['titre'])) . '">Voir le projet</a></p>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+            <button class="projet-nav-right" style="display: none;">&gt;</button>
         </div>
     </section>
     <section class="compétences" id="competences">
@@ -119,6 +123,67 @@
         </div>
     </section>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const projetsList = document.querySelector('.projets-list');
+    const projets = Array.from(projetsList.children);
+    const navLeft = document.querySelector('.projet-nav-left');
+    const navRight = document.querySelector('.projet-nav-right');
+
+    let currentIndex = 0;
+    const itemsPerPage = getItemsPerPage();
+
+    function getItemsPerPage() {
+        if (window.innerWidth <= 710) {
+            return 1;
+        } else if (window.innerWidth <= 1000) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
+    function showProjects() {
+        const itemsPerPage = getItemsPerPage();
+        projets.forEach((projet, index) => {
+            if (index >= currentIndex && index < currentIndex + itemsPerPage) {
+                projet.style.display = 'block';
+            } else {
+                projet.style.display = 'none';
+            }
+        });
+
+        navLeft.style.display = currentIndex === 0 ? 'none' : 'inline-block';
+        navRight.style.display = currentIndex + itemsPerPage >= projets.length ? 'none' : 'inline-block';
+    }
+
+    function updateNavigation() {
+        const itemsPerPage = getItemsPerPage();
+        navLeft.style.display = currentIndex === 0 ? 'none' : 'inline-block';
+        navRight.style.display = currentIndex + itemsPerPage >= projets.length ? 'none' : 'inline-block';
+    }
+
+    navLeft.addEventListener('click', function() {
+        currentIndex -= getItemsPerPage();
+        if (currentIndex < 0) currentIndex = 0;
+        showProjects();
+    });
+
+    navRight.addEventListener('click', function() {
+        currentIndex += getItemsPerPage();
+        if (currentIndex >= projets.length) currentIndex = projets.length - getItemsPerPage();
+        showProjects();
+    });
+
+    window.addEventListener('resize', function() {
+        currentIndex = 0; // Réinitialiser à la première page lors du redimensionnement
+        showProjects();
+    });
+
+    showProjects();
+});
+</script>
 
 <script>
     document.getElementById('contact-form').addEventListener('submit', function(event) {
