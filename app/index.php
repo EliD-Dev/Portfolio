@@ -1,6 +1,6 @@
 <?php require 'Header.php'; ?>
 
-<main>
+<main class="index-main">
     <div class="présentation">
         <div class="titres">
             <h1>Eliot Dubreuil</h1>

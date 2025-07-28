@@ -5,10 +5,10 @@ body {
     padding: 0;
     box-sizing: border-box;
     height: 100%;
-    min-height: 100vh; /* pour s'assurer que le body prend au moins la hauteur de la fenêtre */
+    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     background-color: #fefeff;
-    font-size: 1rem; /* base */
+    font-size: 1rem;
 }
 
 html {
@@ -57,11 +57,75 @@ nav a:hover {
     color: #0f98b1;
 }
 
+#loader {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #fefeff;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-spinner {
+    border: 6px solid #e0e0e0;
+    border-top: 6px solid #0f98b1;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
 main {
     display: flex;
     flex-direction: column;
     padding: 2rem;
     flex: 1; /* take remaining space */
+}
+
+.index-main {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.index-main.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+section > h3 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+section > h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #0f98b1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.projets > h3::after {
+    background-color: #e0f7fa; /* couleur différente pour la section projets */
+}
+
+section > h3:hover::after {
+    transform: scaleX(1);
 }
 
 h1 {
@@ -245,6 +309,21 @@ footer a:hover {
     transition: transform 0.3s ease;
     flex: 0 0 calc(30% - 1.5rem); /* Pour trois projets par ligne */
     margin-bottom: 1.5rem; /* pour l'espacement entre les lignes */
+    transform: rotateY(90deg);
+    opacity: 0;
+    backface-visibility: hidden;
+}
+
+.projet.card-flip-in {
+    animation: cardFlipIn 1.2s ease forwards;
+    animation-delay: calc(var(--index) * 0.5s);
+}
+
+@keyframes cardFlipIn {
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
 }
 
 .projet:hover {
@@ -457,11 +536,22 @@ footer a:hover {
     width: 200px;
     max-width: 200px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    animation: idleWobble 6s ease-in-out infinite;
+    transform-origin: center;
     transition: transform 0.3s ease;
 }
 
 .competence-item:hover {
-    transform: translateY(-5px);
+    animation: none;
+    transform: scale(1.08) rotateZ(1deg);
+}
+
+@keyframes idleWobble {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(0.7deg) scale(1.02); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-0.7deg) scale(1.02); }
+    100% { transform: rotate(0deg) scale(1); }
 }
 
 .competence-item img {
@@ -591,6 +681,23 @@ footer a:hover {
 .form-message.success {
     background-color: #d4edda;
     color: #155724;
+}
+
+.form-message.success::before {
+    content: "\2714 ";
+    margin-right: 0.5rem;
+    animation: fadeInCheck 0.5s ease-out;
+}
+
+@keyframes fadeInCheck {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .admin-login-form {

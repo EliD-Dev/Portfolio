@@ -124,3 +124,27 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
             return $text;
         }
     ?>
+
+    <div id="loader"><div class="loader-spinner"></div></div>
+
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            if (loader) {
+                loader.style.display = "none";
+            }
+
+            const main = document.querySelector(".index-main");
+            if (main) {
+                setTimeout(() => {
+                    main.classList.add("loaded");
+                }, 200);
+            }
+
+            const projets = document.querySelectorAll(".projet");
+            projets.forEach((projet, index) => {
+                projet.classList.add("card-flip-in");
+                projet.style.setProperty('--index', index % 3);
+            });
+        });
+    </script>
