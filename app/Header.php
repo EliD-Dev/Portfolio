@@ -128,6 +128,16 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
     <div id="loader"><div class="loader-spinner"></div></div>
 
     <script>
+        function getItemsPerPage() {
+            if (window.innerWidth <= 710) {
+                return 1;
+            } else if (window.innerWidth <= 1000) {
+                return 2;
+            } else {
+                return 3;
+            }
+        }
+
         window.addEventListener("load", () => {
             const loader = document.getElementById("loader");
             if (loader) {
@@ -144,7 +154,7 @@ $pageDescription = isset($pageDescription) ? htmlspecialchars($pageDescription) 
             const projets = document.querySelectorAll(".projet");
             projets.forEach((projet, index) => {
                 projet.classList.add("card-flip-in");
-                projet.style.setProperty('--index', index % 3);
+                projet.style.setProperty('--index', index % getItemsPerPage());
             });
         });
     </script>

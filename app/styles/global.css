@@ -248,15 +248,22 @@ footer a:hover {
 .animated-icon {
     display: flex;
     font-size: clamp(3.5rem, 5vw, 4.5rem);
-    background: linear-gradient(270deg, #0d3969, #0f98b1);
+    background: linear-gradient(270deg, #0f98b1, #0d3969);
     background-size: 400% 400%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: gradientShift 5s ease infinite;
+    animation: animatedGradient 6s ease infinite;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
 }
 
-@keyframes gradientShift {
+.animated-icon:hover {
+    transform: scale(1.07) rotateZ(4deg);
+}
+
+/* Dégradé animé */
+@keyframes animatedGradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }

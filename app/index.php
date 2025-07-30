@@ -134,16 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
     const itemsPerPage = getItemsPerPage();
 
-    function getItemsPerPage() {
-        if (window.innerWidth <= 710) {
-            return 1;
-        } else if (window.innerWidth <= 1000) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
-
     function showProjects() {
         const itemsPerPage = getItemsPerPage();
         projets.forEach((projet, index) => {
