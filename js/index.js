@@ -37,6 +37,8 @@ function initProjetsNavigation() {
     const projets = Array.from(projetsList.children);
     const navLeft = document.querySelector('.projet-nav-left');
     const navRight = document.querySelector('.projet-nav-right');
+    const navLeftPhone = document.querySelector('.projet-nav-left-phone');
+    const navRightPhone = document.querySelector('.projet-nav-right-phone');
 
     let currentIndex = 0;
 
@@ -50,21 +52,38 @@ function initProjetsNavigation() {
             }
         });
 
+        // Gérer l'affichage des boutons desktop
         navLeft.style.display = currentIndex === 0 ? 'none' : 'inline-block';
         navRight.style.display = currentIndex + itemsPerPage >= projets.length ? 'none' : 'inline-block';
+        
+        // Gérer l'affichage des boutons mobile
+        if (navLeftPhone && navRightPhone) {
+            navLeftPhone.style.display = currentIndex === 0 ? 'none' : 'flex';
+            navRightPhone.style.display = currentIndex + itemsPerPage >= projets.length ? 'none' : 'flex';
+        }
     }
 
-    navLeft.addEventListener('click', function() {
+    function navigateLeft() {
         currentIndex -= getItemsPerPage();
         currentIndex = Math.max(currentIndex, 0);
         showProjects();
-    });
+    }
 
-    navRight.addEventListener('click', function() {
+    function navigateRight() {
         currentIndex += getItemsPerPage();
         if (currentIndex >= projets.length) { currentIndex = projets.length - getItemsPerPage(); }
         showProjects();
-    });
+    }
+
+    // Événements pour les boutons desktop
+    navLeft.addEventListener('click', navigateLeft);
+    navRight.addEventListener('click', navigateRight);
+    
+    // Événements pour les boutons mobile
+    if (navLeftPhone && navRightPhone) {
+        navLeftPhone.addEventListener('click', navigateLeft);
+        navRightPhone.addEventListener('click', navigateRight);
+    }
 
     window.addEventListener('resize', function() {
         currentIndex = 0;
