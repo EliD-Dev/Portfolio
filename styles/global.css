@@ -1554,10 +1554,52 @@ td:nth-child(2) {
         width: auto;
     }
     
+    .infosMailetGithub {
+        padding: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .infosMailetGithub div {
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .infosMailetGithub a {
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
+        word-break: break-word;
+    }
+    
+    .MailetGithubmargin0 a {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+    
+    .animated-icon {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+    }
+    
+    .projet {
+        padding: 1.2rem 0.8rem;
+    }
+    
     .projet img {
-        height: 180px;
+        height: 200px;
         object-fit: contain;
         background-color: #f8f9fa;
+    }
+    
+    .projet h4 {
+        font-size: clamp(1.3rem, 5vw, 1.6rem);
+        margin-top: 0.8rem;
+    }
+    
+    .projet p {
+        font-size: clamp(0.95rem, 4vw, 1.1rem);
+        line-height: 1.5;
+    }
+    
+    .projet a {
+        font-size: clamp(0.9rem, 4vw, 1.05rem);
+        padding: 0.6rem 1.2rem;
     }
     
     .competence-item {
@@ -1568,5 +1610,76 @@ td:nth-child(2) {
     
     .competence-item img {
         height: 100px;
+    }
+}
+
+/* Media query pour les très très petits écrans (petits téléphones) */
+@media (max-width: 380px) {
+    main {
+        padding: 1.5rem 1rem;
+    }
+    
+    h1 {
+        font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+    
+    h2 {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+    }
+    
+    .infosMailetGithub {
+        padding: 0.8rem;
+        margin-right: 0;
+        margin-top: 1rem;
+    }
+    
+    .infosMailetGithub div {
+        gap: 0.4rem;
+        margin-bottom: 0.6rem;
+        flex-wrap: wrap;
+    }
+    
+    .infosMailetGithub a {
+        font-size: 1rem;
+        word-break: break-all;
+    }
+    
+    .MailetGithubmargin0 a {
+        font-size: 0.95rem;
+    }
+    
+    .animated-icon {
+        font-size: 2.2rem;
+    }
+    
+    .projets {
+        padding: 2rem 1rem;
+        margin: 0 -0.5rem;
+    }
+    
+    .projet {
+        padding: 1rem;
+        flex: 0 0 100%;
+    }
+    
+    .projet img {
+        height: 180px;
+    }
+    
+    .projet h4 {
+        font-size: 1.2rem;
+        margin-top: 0.6rem;
+    }
+    
+    .projet p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-top: 0.5rem;
+    }
+    
+    .projet a {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        margin-top: 0.8rem;
     }
 }
