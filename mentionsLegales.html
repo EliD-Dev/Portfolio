@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio EliDev</title>
+    
+    <!-- Préconnexion DNS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Polices -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    </noscript>
+    
+    <!-- Styles -->
+    <link rel="icon" href="./images/Logo_EliDev.webp" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="loader"><div class="loader-spinner"></div></div>
+    
+    <div id="header-placeholder"></div>
+
+    <main class="index-main">
+        <h1>Mentions Légales</h1>
+        <p>Le site est créé et développé par <a href="https://github.com/EliD-Dev">EliDev</a>.</p>
+
+        <p>Le site n'est pas encore public...</p>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="./js/head.js"></script>
+    <script src="./js/config.js"></script>
+<script>
+    // Initialisation de la page
+    async function initMentionsLegalesPage() {
+        try {
+            await loadComponent('header');
+            await loadComponent('footer');
+            updatePageMetadata(CONFIG.pages.mentionsLegales);
+            hideLoader();
+            showPageLoadAnimation();
+        } catch (error) {
+            console.error('Erreur lors de l\'initialisation de la page:', error);
+            hideLoader();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', initMentionsLegalesPage);
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio EliDev</title>
+    
+    <!-- Préconnexion DNS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Polices -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    </noscript>
+    
+    <!-- Styles -->
+    <link rel="icon" href="./images/Logo_EliDev.webp" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="loader"><div class="loader-spinner"></div></div>
+    
+    <div id="header-placeholder"></div>
+
+    <main class="index-main">
+    <div class="présentation">
+        <div class="titres">
+            <h1>Eliot Dubreuil</h1>
+            <h2>Développeur Polyvalent</h2>
+        </div>
+        <div class="infosMailetGithub">
+            <div><a href="mailto:eliotdubreuil@gmail.com"><i class="fa-solid fa-envelope animated-icon"></i></a> <a href="mailto:eliotdubreuil@gmail.com">eliotdubreuil@gmail.com</a></div>
+            <div><a href="https://github.com/EliD-Dev" target="_blank"><i class="fa-brands fa-github animated-icon"></i></a> <a href="https://github.com/EliD-Dev" target="_blank">Eli-Dev</a></div>
+        </div>
+    </div>
+    <section>
+        <h3>À propos</h3>
+        <p>Je m'appelle Eliot Dubreuil et je suis développeur web passionné par la création d'applications et de sites internet.</p>
+        <p>Que ce soit pour créer un site vitrine, développer une application web complète ou optimiser une plateforme existante, je m'investis pleinement dans chaque projet pour livrer un travail de qualité.</p>
+        <p>N'hésitez pas à parcourir mes projets et mes compétences puis à me contacter si vous avez un projet en tête ou simplement pour échanger !</p>
+    </section>
+    <section class="projets" id="projets">
+        <h3>Mes Projets</h3>
+        <div class="projets-container">
+            <button class="projet-nav-left" style="display: none;">&lt;</button>
+            <div class="projets-list">
+                <!-- Les projets seront chargés dynamiquement par JavaScript -->
+            </div>
+            <button class="projet-nav-right" style="display: none;">&gt;</button>
+        </div>
+    </section>
+    <section class="compétences" id="competences">
+        <h3>Mes Compétences</h3>
+        <div class="competences-list">
+            <!-- Les compétences seront chargées dynamiquement par JavaScript -->
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h3>Contact</h3>
+        <div class="contact-container">
+            <div class="contact-info">
+                <p>Pour toute question ou collaboration, n'hésitez pas à me contacter par ce formulaire de contact ou par email.</p>
+                <div class="infosMailetGithub MailetGithubmargin0">
+                    <div><a href="mailto:eliotdubreuil@gmail.com"><i class="fa-solid fa-envelope animated-icon"></i></a> <a href="mailto:eliotdubreuil@gmail.com">eliotdubreuil@gmail.com</a></div>
+                    <div><a href="https://github.com/EliD-Dev" target="_blank"><i class="fa-brands fa-github animated-icon"></i></a> <a href="https://github.com/EliD-Dev" target="_blank">Eli-Dev</a></div>
+                </div>
+            </div>
+            
+            <form id="contact-form" class="contact-form" enctype="multipart/form-data">
+                <div id="form-message" class="form-message"></div>
+                <div class="form-group">
+                    <label for="name">Nom :</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Sujet :</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <div class="form-group cacher">
+                    <label for="website">Site web :</label>
+                    <input type="text" id="website" name="website">
+                </div>
+                <button type="submit" id="submit-button">Envoyer</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<!-- EmailJS SDK (optionnel - uniquement si vous utilisez EmailJS) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script src="./js/head.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/api.js"></script>
+<script src="./js/contact.js"></script>
+<script src="./js/index.js"></script>
+
+<script>
+    // Initialiser le formulaire de contact après le chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof initContactForm === 'function') {
+            initContactForm();
+        }
+    });
+</script>
+</body>
+</html>
