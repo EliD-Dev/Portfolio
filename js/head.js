@@ -37,7 +37,17 @@ function injectHeadMetadata(pageConfig) {
         'twitter:site': '@EliDev',
         'twitter:creator': '@EliDev'
     };
-    
+
+    // <meta name="google-adsense-account" content="ca-pub-3286870517844598">
+    const googleAdsenseAccount = 'ca-pub-3286870517844598';
+    let adsenseMeta = document.querySelector('meta[name="google-adsense-account"]');
+    if (!adsenseMeta) {
+        adsenseMeta = document.createElement('meta');
+        adsenseMeta.setAttribute('name', 'google-adsense-account');
+        document.head.appendChild(adsenseMeta);
+    }   
+    adsenseMeta.setAttribute('content', googleAdsenseAccount);
+
     // Injecter les métadonnées
     Object.entries({...metaTags, ...ogTags, ...twitterTags}).forEach(([key, value]) => {
         const isProperty = key.startsWith('og:') || key.startsWith('twitter:');
