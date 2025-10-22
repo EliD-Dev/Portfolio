@@ -1,0 +1,51 @@
+# robots.txt pour Portfolio EliDev
+# https://elid-dev.github.io/Portfolio/
+
+# Autoriser tous les robots à indexer le site
+User-agent: *
+Allow: /
+
+# Bloquer l'indexation de la page avec publicités
+Disallow: /ads-page.html
+
+# Bloquer l'indexation des dossiers techniques
+Disallow: /components/
+Disallow: /js/
+
+# Autoriser spécifiquement les pages principales
+Allow: /index.html
+Allow: /projet.html
+Allow: /mentionsLegales.html
+
+# Autoriser les ressources CSS et images pour un meilleur rendu
+Allow: /styles/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://elid-dev.github.io/Portfolio/sitemap.xml
+
+# Règles spécifiques pour les principaux moteurs de recherche
+User-agent: Googlebot
+Allow: /
+Disallow: /ads-page.html
+Disallow: /components/
+Disallow: /js/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /ads-page.html
+Disallow: /components/
+Disallow: /js/
+
+# Bloquer les bots de scraping agressifs
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Crawl-delay: 10
+
+# Temps d'attente entre les requêtes (en secondes)
+Crawl-delay: 1

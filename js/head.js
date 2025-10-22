@@ -15,7 +15,8 @@ function injectHeadMetadata(pageConfig) {
         'author': 'EliDev',
         'publisher': 'EliDev',
         'copyright': `© ${currentYear} EliDev`,
-        'keywords': pageConfig.keywords || 'portfolio, développeur, polyvalent, développeur polyvalent, full stack, web developer, JS, JavaScript, PHP, HTML, CSS, Java, Python, Excel, VBA, SQL, Access, Symfony, Docker, Git, GitHub, Eliot Dubreuil, Eliot, Dubreuil, Eli, Dev, EliDev'
+        'keywords': pageConfig.keywords || 'portfolio, développeur, polyvalent, développeur polyvalent, full stack, web developer, JS, JavaScript, PHP, HTML, CSS, Java, Python, Excel, VBA, SQL, Access, Symfony, Docker, Git, GitHub, Eliot Dubreuil, Eliot, Dubreuil, Eli, Dev, EliDev',
+        'google-adsense-account': 'ca-pub-3286870517844598'
     };
     
     // Open Graph
@@ -37,16 +38,6 @@ function injectHeadMetadata(pageConfig) {
         'twitter:site': '@EliDev',
         'twitter:creator': '@EliDev'
     };
-
-    // <meta name="google-adsense-account" content="ca-pub-3286870517844598">
-    const googleAdsenseAccount = 'ca-pub-3286870517844598';
-    let adsenseMeta = document.querySelector('meta[name="google-adsense-account"]');
-    if (!adsenseMeta) {
-        adsenseMeta = document.createElement('meta');
-        adsenseMeta.setAttribute('name', 'google-adsense-account');
-        document.head.appendChild(adsenseMeta);
-    }   
-    adsenseMeta.setAttribute('content', googleAdsenseAccount);
 
     // Injecter les métadonnées
     Object.entries({...metaTags, ...ogTags, ...twitterTags}).forEach(([key, value]) => {
