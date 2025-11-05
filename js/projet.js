@@ -36,7 +36,7 @@ function displayProjetDetail(projet) {
     
     const imagePath = projet.imagePath.startsWith('http') 
         ? projet.imagePath 
-        : `https://portfolio-api.eliot-dubreuil.workers.dev${projet.imagePath}`;
+        : `https://portfolio-api.eli-dev.fr${projet.imagePath}`;
     
     projetContent.innerHTML = `
         <article class="projet-article">

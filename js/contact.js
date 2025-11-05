@@ -14,7 +14,7 @@ const CONTACT_CONFIG = {
     // Obtenez votre clé sur https://web3forms.com/
     web3forms: {
         accessKey: '232d897b-09b0-4b2f-be93-00da85545b18',
-        toEmail: 'eliotdubreuil@gmail.com'
+        toEmail: 'contact@eli-dev.fr'
     },
     
     // Alternative 2: Formspree (50 emails/mois gratuit)
@@ -350,7 +350,7 @@ async function handleContactFormSubmit(event) {
                     `• Web3Forms : 250/mois\n` +
                     `• EmailJS : 200/mois\n` +
                     `• Formspree : 50/mois\n\n` +
-                    `Veuillez réessayer le mois prochain ou contactez-moi directement à eliotdubreuil@gmail.com`;
+                    `Veuillez réessayer le mois prochain ou contactez-moi directement à contact@eli-dev.fr`;
                 showMessage(messageDiv, errorMsg, 'error');
                 console.error('❌ Tous les services ont atteint leur quota mensuel');
             } else {

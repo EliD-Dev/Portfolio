@@ -1,6 +1,6 @@
 // Configuration globale du site
 const CONFIG = {
-    API_BASE_URL: 'https://portfolio-api.eliot-dubreuil.workers.dev/api',
+    API_BASE_URL: 'https://portfolio-api.eli-dev.fr/api',
     
     // Configuration des pages pour le SEO
     pages: {

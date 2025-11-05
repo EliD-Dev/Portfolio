@@ -60,7 +60,7 @@ function displayProjets(projets) {
         
         const imagePath = projet.imagePath.startsWith('http') 
             ? projet.imagePath 
-            : `https://portfolio-api.eliot-dubreuil.workers.dev${projet.imagePath}`;
+            : `https://portfolio-api.eli-dev.fr${projet.imagePath}`;
         
         projetDiv.innerHTML = `
             <img src="${imagePath}" alt="${projet.titre}">
@@ -115,7 +115,7 @@ function displayCompetences(competences) {
             
             const logoPath = competence.logoPath.startsWith('http') 
                 ? competence.logoPath 
-                : `https://portfolio-api.eliot-dubreuil.workers.dev${competence.logoPath}`;
+                : `https://portfolio-api.eli-dev.fr${competence.logoPath}`;
             
             itemDiv.innerHTML = `
                 <img src="${logoPath}" alt="${competence.nom}" class="competence-logo">
