@@ -1,6 +1,10 @@
 // Fonction pour injecter les métadonnées dans le <head>
 function injectHeadMetadata(pageConfig) {
-    const currentUrl = window.location.href.split('?')[0];
+    // Normaliser l'URL canonique (sans www, sans index.html, sans query string)
+    let currentUrl = globalThis.location.href.split('?')[0].split('#')[0];
+    currentUrl = currentUrl.replace('://www.', '://'); // Enlever www
+    currentUrl = currentUrl.replace(/\/index\.html$/, '/'); // Enlever index.html
+    
     const currentYear = new Date().getFullYear();
     
     // Titre
@@ -61,22 +65,126 @@ function injectHeadMetadata(pageConfig) {
     }
     canonical.setAttribute('href', currentUrl);
     
-    // Schema.org JSON-LD
-    let schemaScript = document.querySelector('script[type="application/ld+json"]');
+    // Schema.org JSON-LD - WebSite
+    let schemaScript = document.querySelector('script[type="application/ld+json"][data-schema="website"]');
     if (!schemaScript) {
         schemaScript = document.createElement('script');
         schemaScript.type = 'application/ld+json';
+        schemaScript.setAttribute('data-schema', 'website');
         document.head.appendChild(schemaScript);
     }
     
-    const schemaData = {
+    const websiteSchema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Portfolio EliDev",
-        "url": currentUrl,
+        "url": "https://eli-dev.fr/",
         "description": pageConfig.description,
-        "image": "./images/Logo_EliDev.webp"
+        "image": "https://eli-dev.fr/images/Logo_EliDev.webp",
+        "author": {
+            "@type": "Person",
+            "name": "Eliot Dubreuil"
+        }
     };
     
-    schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    schemaScript.textContent = JSON.stringify(websiteSchema, null, 2);
+    
+    // Schema.org JSON-LD - Person (pour SEO local/professionnel)
+    let personSchemaScript = document.querySelector('script[type="application/ld+json"][data-schema="person"]');
+    if (!personSchemaScript) {
+        personSchemaScript = document.createElement('script');
+        personSchemaScript.type = 'application/ld+json';
+        personSchemaScript.setAttribute('data-schema', 'person');
+        document.head.appendChild(personSchemaScript);
+    }
+    
+    const personSchema = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Eliot Dubreuil",
+        "alternateName": "EliDev",
+        "url": "https://eli-dev.fr/",
+        "image": "https://eli-dev.fr/images/Logo_EliDev.webp",
+        "jobTitle": "Développeur Web Full Stack",
+        "description": "Développeur web freelance spécialisé en JavaScript, PHP, Python et Java. Création de sites web et applications sur mesure.",
+        "knowsAbout": [
+            "JavaScript", "TypeScript", "React", "Vue.js", "Node.js",
+            "PHP", "Symfony", "Laravel",
+            "Python", "Django", "Flask",
+            "Java", "Spring Boot",
+            "HTML", "CSS", "SQL", "MongoDB",
+            "Git", "Docker", "CI/CD"
+        ],
+        "sameAs": [
+            "https://github.com/EliD-Dev"
+        ],
+        "worksFor": {
+            "@type": "Organization",
+            "name": "EliDev (Freelance)"
+        }
+    };
+    
+    personSchemaScript.textContent = JSON.stringify(personSchema, null, 2);
+}
+
+// Variable globale pour stocker l'ancre en attente
+let pendingAnchorScroll = null;
+
+// Fonction pour initialiser le système de scroll d'ancrage
+function initAnchorScrollSystem() {
+    const hash = window.location.hash;
+    
+    if (hash) {
+        // Désactiver temporairement le smooth scroll
+        document.documentElement.style.scrollBehavior = 'auto';
+        
+        // Empêcher le navigateur de faire son propre scroll
+        history.scrollRestoration = 'manual';
+        
+        // Forcer le scroll en haut de la page immédiatement
+        window.scrollTo(0, 0);
+        
+        // Stocker l'ancre pour la traiter après le chargement
+        pendingAnchorScroll = hash;
+    }
+}
+
+// Fonction pour effectuer le scroll vers l'ancre après le chargement
+function performPendingAnchorScroll() {
+    if (!pendingAnchorScroll) return;
+    
+    const targetElement = document.querySelector(pendingAnchorScroll);
+    
+    if (targetElement) {
+        // Si c'est un H3, prendre la section parente
+        let scrollTarget = targetElement;
+        if (targetElement.tagName === 'H3') {
+            scrollTarget = targetElement.closest('section');
+        }
+        
+        if (scrollTarget) {
+            // Calculer la position exacte (sans marge)
+            const headerHeight = document.querySelector('nav')?.offsetHeight || 0;
+            // Scroller plus vers le bas de 10% de la hauteur de l'écran pour compenser
+            const targetPosition = scrollTarget.offsetTop - headerHeight + window.innerHeight * 0.5;
+            
+            // Scroller instantanément vers la position
+            window.scrollTo(0, targetPosition);
+            
+            // Réactiver le smooth scroll après
+            setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }, 100);
+        }
+    }
+    
+    // Nettoyer la variable
+    pendingAnchorScroll = null;
+}
+
+// Initialiser au chargement
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnchorScrollSystem);
+} else {
+    initAnchorScrollSystem();
 }

@@ -5,21 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio EliDev</title>
     
-    <!-- Préconnexion DNS -->
+    <!-- Préconnexion DNS prioritaire pour l'API -->
+    <link rel="preconnect" href="https://portfolio-api.eli-dev.fr">
+    <link rel="dns-prefetch" href="https://portfolio-api.eli-dev.fr">
+    
+    <!-- Préconnexion DNS pour les ressources externes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
-    <!-- Polices -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload de l'image LCP (logo) -->
+    <link rel="preload" href="/images/Logo_EliDev.webp" as="image" type="image/webp" fetchpriority="high">
+    
+    <!-- CSS critique inline pour le rendu immédiat -->
+    <style>
+        *{box-sizing:border-box}body{display:flex;flex-direction:column;margin:0;padding:0;min-height:100vh;font-family:'Roboto',sans-serif;background:linear-gradient(135deg,#fff,#fbfdff);font-size:1rem;overflow-x:hidden}html{scroll-behavior:smooth;height:100%;margin:0}#loader{position:fixed;width:100%;height:100vh;background:#fefeff;top:0;left:0;z-index:9999;display:flex;justify-content:center;align-items:center}.loader-spinner{width:50px;height:50px;border:5px solid #f3f3f3;border-top:5px solid #0f98b1;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}nav{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.5rem;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 15px rgba(13,57,105,.08);position:sticky;top:0;z-index:100}nav img{width:35vw;max-width:180px;height:auto}
+    </style>
+    
+    <!-- Version pour cache busting -->
+    <script>
+        window.SITE_VERSION = '7.0000000005';
+    </script>
+    
+    <!-- Styles complets -->
+    <link rel="stylesheet" href="/styles/global.css?v=7.0000000005">
+    <link rel="stylesheet" href="/styles/projet.css?v=7.0000000005">
+    
+    <!-- Polices avec font-display swap -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
     </noscript>
     
-    <!-- Styles -->
-    <link rel="icon" href="./images/Logo_EliDev.webp" type="image/x-icon">
-    <link rel="stylesheet" href="./styles/global.css">
-    <link rel="stylesheet" href="./styles/projet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="/images/Logo_EliDev.webp" type="image/x-icon">
 </head>
 <body>
     <div id="loader"><div class="loader-spinner"></div></div>
@@ -34,9 +57,9 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="./js/head.js"></script>
-    <script src="./js/config.js"></script>
-    <script src="./js/api.js"></script>
-    <script src="./js/projet.js"></script>
+    <script src="/js/head.js?v=7.0000000005" defer></script>
+    <script src="/js/config.js?v=7.0000000005" defer></script>
+    <script src="/js/api.js?v=7.0000000005" defer></script>
+    <script src="/js/projet.js?v=7.0000000005" defer></script>
 </body>
 </html>

@@ -54,23 +54,35 @@ function displayProjets(projets) {
     
     projetsList.innerHTML = '';
     
-    projets.forEach(projet => {
+    projets.forEach((projet, index) => {
         const projetDiv = document.createElement('div');
         projetDiv.className = 'projet';
         
-        const imagePath = projet.imagePath.startsWith('http') 
-            ? projet.imagePath 
-            : `https://portfolio-api.eli-dev.fr${projet.imagePath}`;
+        const imagePath = `${CONFIG.API_DOMAIN}${projet.imagePath}`;
+        
+        // Utiliser loading="eager" pour les 3 premiers projets, "lazy" pour les autres
+        const loadingAttr = index < 3 ? 'eager' : 'lazy';
         
         projetDiv.innerHTML = `
-            <img src="${imagePath}" alt="${projet.titre}">
+            <img src="${imagePath}" alt="${projet.titre}" loading="${loadingAttr}" width="400" height="300">
             <h4>${projet.titre}</h4>
             <p><strong>Type :</strong> ${projet.type}</p>
-            <p>${projet.description}</p>
-            <p><a href="./projet.html?slug=${slugify(projet.titre)}">Voir le projet</a></p>
+            <p class="projet-description auto-sup">${projet.description}</p>
+            <p class="projet-button"><a href="/projet/${slugify(projet.titre)}">Voir le projet</a></p>
         `;
         
         projetsList.appendChild(projetDiv);
+    });
+
+    document.querySelectorAll(".auto-sup").forEach(el => {
+        const txt = el.textContent;
+
+        const out = txt.replace(/(\d+)(\s|\u00A0)?(er|re|ème|e|ère)\b/gi, (match, num, sep, suf) => {
+        const spacer = sep ? sep : '';
+        return `${num}${spacer}<sup>${suf}</sup>`;
+        });
+
+        el.innerHTML = out;
     });
 }
 
@@ -113,12 +125,10 @@ function displayCompetences(competences) {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'competence-item';
             
-            const logoPath = competence.logoPath.startsWith('http') 
-                ? competence.logoPath 
-                : `https://portfolio-api.eli-dev.fr${competence.logoPath}`;
+            const logoPath = `${CONFIG.API_DOMAIN}${competence.logoPath}`;
             
             itemDiv.innerHTML = `
-                <img src="${logoPath}" alt="${competence.nom}" class="competence-logo">
+                <img src="${logoPath}" alt="${competence.nom}" class="competence-logo" loading="lazy" width="149" height="175">
                 <p>${competence.nom}</p>
             `;
             

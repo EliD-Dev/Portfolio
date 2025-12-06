@@ -1,5 +1,7 @@
 // Configuration globale du site
 const CONFIG = {
+    VERSION: '7.0000000005',
+    API_DOMAIN: 'https://portfolio-api.eli-dev.fr',
     API_BASE_URL: 'https://portfolio-api.eli-dev.fr/api',
     
     // Configuration des pages pour le SEO
@@ -15,6 +17,10 @@ const CONFIG = {
         projet: {
             title: "Projet - EliDev",
             description: "Détails du projet réalisé par Eliot Dubreuil, développeur polyvalent."
+        },
+        404: {
+            title: "404 - Page non trouvée | EliDev",
+            description: "La page que vous recherchez n'existe pas ou a été supprimée. Retournez à l'accueil du portfolio d'EliDev."
         }
     }
 };
@@ -24,18 +30,18 @@ function slugify(text) {
     return text
         .toString()
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
+        .replaceAll(/[\u0300-\u036f]/g, '')
         .toLowerCase()
         .trim()
-        .replace(/[^a-z0-9 -]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-');
+        .replaceAll(/[^a-z0-9 -]/g, '')
+        .replaceAll(/\s+/g, '-')
+        .replaceAll(/-+/g, '-');
 }
 
 // Fonction pour charger les composants (header et footer)
 async function loadComponent(componentName) {
     try {
-        const response = await fetch(`./components/${componentName}.html`);
+        const response = await fetch(`/components/${componentName}.html`);
         const html = await response.text();
         
         const placeholder = document.getElementById(`${componentName}-placeholder`);
@@ -55,24 +61,47 @@ function updatePageMetadata(pageConfig) {
     
     // Injecter les métadonnées du head
     injectHeadMetadata(pageConfig);
-    
+}
+
+// Fonction pour initialiser le footer (année et lien API)
+function initFooter() {
     // Mettre à jour l'année dans le footer
     const footerYear = document.getElementById('footer-year');
     if (footerYear) {
-        if (new Date().getFullYear() !== 2025) {
-            footerYear.textContent = '2025 - ' + new Date().getFullYear();
-        }
-        else {
+        if (new Date().getFullYear() === 2025) {
             footerYear.textContent = '2025';
         }
+        else {
+            footerYear.textContent = '2025 - ' + new Date().getFullYear();
+        }
+    }
+
+    // Mettre à jour le lien de l'API
+    const apiLink = document.getElementById('api-link');
+    if (apiLink) {
+        apiLink.href = CONFIG.API_DOMAIN;
     }
 }
 
 // Fonction pour obtenir le nombre d'items par page (responsive)
+// Cache la valeur de innerWidth pour éviter les forced reflows
+let cachedInnerWidth = window.innerWidth;
+let resizeTimeout;
+
+// Utiliser requestAnimationFrame pour éviter les forced reflows
+window.addEventListener('resize', () => {
+    if (resizeTimeout) {
+        cancelAnimationFrame(resizeTimeout);
+    }
+    resizeTimeout = requestAnimationFrame(() => {
+        cachedInnerWidth = window.innerWidth;
+    });
+}, { passive: true });
+
 function getItemsPerPage() {
-    if (window.innerWidth <= 710) {
+    if (cachedInnerWidth <= 710) {
         return 1;
-    } else if (window.innerWidth <= 1000) {
+    } else if (cachedInnerWidth <= 1000) {
         return 2;
     } else {
         return 3;
@@ -83,7 +112,16 @@ function getItemsPerPage() {
 function hideLoader() {
     const loader = document.getElementById('loader');
     if (loader) {
-        loader.style.display = 'none';
+        // Attendre que le contenu soit bien rendu dans le DOM
+        setTimeout(() => {
+            // Effectuer le scroll d'ancrage en attente
+            if (typeof performPendingAnchorScroll === 'function') {
+                performPendingAnchorScroll();
+            }
+            
+            // Masquer le loader
+            loader.style.display = 'none';
+        }, 500);
     }
 }
 
@@ -95,10 +133,4 @@ function showPageLoadAnimation() {
             main.classList.add('loaded');
         }, 200);
     }
-
-    const projets = document.querySelectorAll('.projet');
-    projets.forEach((projet, index) => {
-        projet.classList.add('card-flip-in');
-        projet.style.setProperty('--index', index % getItemsPerPage());
-    });
 }

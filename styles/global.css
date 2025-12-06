@@ -2,6 +2,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-primary: #0f98b1;
+    --color-primary-mid: #0e698d;
+    --color-primary-dark: #0d3969;
+    --color-bg: #fbfdff;
+    --color-white: #ffffff;
+    --color-text: #333;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -11,7 +20,7 @@ body {
     width: 100%;
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #ffffff, #fbfdff);
+    background: linear-gradient(135deg, var(--color-white), var(--color-bg));
     font-size: 1rem;
     overflow-x: hidden;
 }
@@ -61,7 +70,7 @@ nav div {
 
 nav a {
     text-decoration: none;
-    color: #0d3969;
+    color: var(--color-primary-dark);
     font-weight: 500;
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     transition: all 0.3s ease;
@@ -81,7 +90,7 @@ nav a::after {
 }
 
 nav a:hover {
-    color: #0f98b1;
+    color: var(--color-primary);
     transform: translateY(-2px);
 }
 
@@ -200,25 +209,21 @@ section > h3:hover::after {
 h1 {
     font-size: clamp(3rem, 5vw, 4.3rem);
     font-weight: 900;
-    background: linear-gradient(135deg, #0d3969 0%, #0e698d 50%, #0f98b1 100%);
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-mid) 50%, var(--color-primary) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
     margin-top: 0;
     margin-bottom: 0.5rem;
-    animation: shimmer 3s linear infinite;
+    /* Animation désactivée pour améliorer les performances */
+    /* Utilisation d'une couleur statique pour éviter les animations non composées */
     letter-spacing: -0.02em;
-}
-
-@keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    will-change: auto;
 }
 
 h2 {
     font-size: clamp(2.3rem, 4vw, 3.8rem);
-    color: #0f98b1;
+    color: var(--color-primary);
     font-weight: 700;
     width: 100%;
     margin-top: 0;
@@ -241,7 +246,7 @@ h4 {
 
 p {
     font-size: clamp(1.2rem, 2vw, 1.5rem);
-    color: #333;
+    color: var(--color-text);
     margin-top: 1rem;
     line-height: 1.7;
     font-weight: 400;
@@ -278,13 +283,8 @@ footer::before {
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, #0f98b1, #0d3969, #0f98b1);
-    background-size: 200% auto;
-    animation: gradientMove 3s linear infinite;
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    /* Animation désactivée pour améliorer les performances */
+    /* Utilisation d'un gradient statique pour éviter les animations non composées */
 }
 
 footer div {
@@ -419,14 +419,16 @@ footer a:hover::after {
 .animated-icon {
     display: flex;
     font-size: clamp(3.5rem, 5vw, 4.5rem);
-    background: linear-gradient(270deg, #0f98b1, #0d3969, #0f98b1);
-    background-size: 400% 400%;
+    background: linear-gradient(270deg, #0f98b1, #0d3969, #0f98b1, #0f98b1);
+    background-size: 300% 100%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    /* Utiliser transform au lieu de background-position pour la performance */
     animation: animatedGradient 6s ease infinite;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease, filter 0.4s ease;
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.15));
+    will-change: transform;
 }
 
 .animated-icon:hover {
@@ -434,14 +436,45 @@ footer a:hover::after {
     filter: drop-shadow(3px 3px 6px rgba(15, 152, 177, 0.4));
 }
 
+/* Animation optimisée pour la performance - utilise opacity au lieu de background-position */
 @keyframes animatedGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0%, 100% { 
+        opacity: 1;
+    }
+    50% { 
+        opacity: 0.85;
+    }
 }
 
+/* Styles pour les icônes SVG personnalisées */
+.icon-svg {
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.icon-svg.animated-icon {
+    display: flex;
+    font-size: clamp(3.5rem, 5vw, 4.5rem);
+    width: 1em;
+    height: 1em;
+    fill: url(#icon-gradient);
+    animation: animatedGradient 6s ease infinite;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.15));
+    will-change: transform;
+}
+
+.icon-svg.animated-icon:hover {
+    transform: scale(1.15) rotateZ(4deg);
+    filter: drop-shadow(3px 3px 6px rgba(15, 152, 177, 0.4));
+}
+
+/* Gradient SVG definition à utiliser dans le HTML */
+
 .projets {
-    background: linear-gradient(135deg, #0e698d 0%, #0d3969 100%);
+    background: linear-gradient(135deg, var(--color-primary-mid) 0%, var(--color-primary-dark) 100%);
     margin: 0 -0.8rem;
     margin-bottom: 50px;
     padding: 3rem 2rem;
@@ -471,19 +504,27 @@ footer a:hover::after {
 .projets-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     position: relative;
     z-index: 1;
+    gap: 0.5rem;
+}
+
+/* Wrapper pour limiter la zone visible du carousel */
+.projets-list-wrapper {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0; /* Permet au flex item de rétrécir */
 }
 
 .projets-list {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     gap: 1.5rem;
-    justify-content: center; /* pour centrer les projets */
-    flex: 1; /* Pour que la liste des projets prenne tout l'espace disponible entre les flèches */
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Animation plus fluide */
+    will-change: transform;
+    touch-action: pan-y pinch-zoom; /* Permet le scroll vertical mais capture le swipe horizontal */
 }
 
 .projet-nav-left, .projet-nav-right {
@@ -501,33 +542,40 @@ footer a:hover::after {
 }
 
 .projet {
-    background-color: #ffffff;
-    color: #0d3969;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    color: var(--color-primary-dark);
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-    flex: 0 0 calc(30% - 1.5rem); /* Pour trois projets par ligne */
-    margin-bottom: 1.5rem; /* pour l'espacement entre les lignes */
-    transform: rotateY(90deg);
-    opacity: 0;
-    backface-visibility: hidden;
+    transition: box-shadow 0.3s ease; /* Seulement box-shadow, pas transform */
+    flex: 0 0 calc((100% - 3rem) / 3); /* 3 projets avec 2 gaps de 1.5rem */
+    min-width: calc((100% - 3rem) / 3);
+    opacity: 1;
 }
 
-.projet.card-flip-in {
-    animation: cardFlipIn 1.2s ease forwards;
-    animation-delay: calc(var(--index) * 0.5s);
+/* Conteneur pour la description qui prend l'espace restant */
+.projet-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-@keyframes cardFlipIn {
-    to {
-        transform: rotateY(0);
-        opacity: 1;
-    }
+/* Le bouton est poussé en bas */
+.projet > p:last-child,
+.projet .projet-button {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+/* Description qui prend l'espace disponible */
+.projet .projet-description {
+    flex: 1;
 }
 
 .projet:hover {
-    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .projet img {
@@ -562,7 +610,7 @@ footer a:hover::after {
 
 .projet a {
     text-decoration: none;
-    background: linear-gradient(135deg, #0f98b1, #0e698d);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-mid));
     color: white;
     padding: 0.7rem 1.5rem;
     font-weight: 600;
@@ -598,7 +646,7 @@ footer a:hover::after {
 
 .projet a:hover {
     color: #ffffff;
-    background: linear-gradient(135deg, #0e698d, #0d3969);
+    background: linear-gradient(135deg, var(--color-primary-mid), var(--color-primary-dark));
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(15, 152, 177, 0.4);
 }
@@ -610,17 +658,24 @@ footer a:hover::after {
     font-weight: 600;
     font-size: clamp(1.2rem, 1.5vw, 1.5rem);
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, visibility 0s, opacity 0.3s ease;
     cursor: pointer;
-    margin-right: 1rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    left: 0;
     width: 50px;
     height: 50px;
+    min-width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+/* État invisible mais garde l'espace */
+.projet-nav-left.hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .projet-nav-left:hover {
@@ -637,17 +692,24 @@ footer a:hover::after {
     font-weight: 600;
     font-size: clamp(1.2rem, 1.5vw, 1.5rem);
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, visibility 0s, opacity 0.3s ease;
     cursor: pointer;
-    margin-left: 1rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    right: 0;
     width: 50px;
     height: 50px;
+    min-width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+/* État invisible mais garde l'espace */
+.projet-nav-right.hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .projet-nav-right:hover {
@@ -696,11 +758,12 @@ footer a:hover::after {
 
 @media (max-width: 1000px) {
     .projet {
-        flex: 0 0 calc(40% - 1.5rem); /* Pour deux projets par ligne */
+        flex: 0 0 calc((100% - 1.5rem) / 2); /* 2 projets avec 1 gap de 1.5rem */
+        min-width: calc((100% - 1.5rem) / 2);
     }
     .projet img {
-        height: 200px; /* pour une image responsive */
-        max-height: 200px; /* pour une image responsive */
+        height: 200px;
+        max-height: 200px;
         object-fit: contain;
         background-color: #f8f9fa;
     }
@@ -708,11 +771,12 @@ footer a:hover::after {
 
 @media (max-width: 710px) {
     .projet {
-        flex: 0 0 calc(80% - 1.5rem); /* Pour un projet par ligne */
+        flex: 0 0 100%; /* Pour un projet visible */
+        min-width: 100%;
     }
     .projet img {
-        height: 150px; /* pour une image responsive */
-        max-height: 150px; /* pour une image responsive */
+        height: 150px;
+        max-height: 150px;
         object-fit: contain;
         background-color: #f8f9fa;
     }
@@ -732,7 +796,7 @@ footer a:hover::after {
     background: #ebf8ff;
     border-left: 4px solid #0f98b1;
     border-radius: 8px;
-    transition: background 0.3s ease;
+    transition: background 0.9s ease;
 }
 
 .competence-type:hover {
@@ -757,7 +821,7 @@ footer a:hover::after {
     transform: translateY(-50%);
     color: #0f98b1;
     font-size: 1.5em;
-    transition: transform 0.3s ease;
+    transition: transform 0.9s ease;
 }
 
 .competence-type:hover h4::before {
@@ -900,6 +964,10 @@ footer a:hover::after {
     animation: rotate 20s linear infinite;
 }
 
+.footer-links-right {
+    margin-right: 75px;
+}
+
 @keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -941,6 +1009,7 @@ footer a:hover::after {
 .contact-form textarea {
     padding: 0.8rem;
     border: 2px solid transparent;
+    resize: vertical;
     border-radius: 10px;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     font-family: 'Roboto', sans-serif;
@@ -1581,6 +1650,11 @@ td:nth-child(2) {
         flex-direction: column;
         align-items: center;
     }
+    
+    .footer-links-right {
+        margin-right: 0;
+        margin-top: 1rem;
+    }
 }
 
 /* Media query pour les très petits écrans */
@@ -1707,8 +1781,12 @@ td:nth-child(2) {
     }
     
     .projets-container {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .projets-list-wrapper {
+        overflow: hidden;
     }
     
     .projets-list {
@@ -1721,6 +1799,7 @@ td:nth-child(2) {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        max-height: none; /* Pas de limite de hauteur */
     }
     
     .projet img {
@@ -1798,8 +1877,12 @@ td:nth-child(2) {
     }
     
     .projets-container {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .projets-list-wrapper {
+        overflow: hidden;
     }
     
     .projets-list {
@@ -1814,7 +1897,7 @@ td:nth-child(2) {
         max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
-        margin-bottom: 1rem;
+        max-height: none; /* Pas de limite de hauteur */
     }
     
     .projet img {
@@ -1851,5 +1934,63 @@ td:nth-child(2) {
     
     .competence-item p {
         font-size: 0.9rem;
+    }
+}
+
+/* Bouton retour en haut */
+#topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background: linear-gradient(135deg, #0f98b1, #0e698d);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(15, 152, 177, 0.4);
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+#topBtn:hover {
+    background: linear-gradient(135deg, #0e698d, #0d3969);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(15, 152, 177, 0.6);
+}
+
+#topBtn svg {
+    width: 24px;
+    height: 24px;
+}
+
+#topBtn.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (max-width: 710px) {
+    #topBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        padding: 12px;
+    }
+    
+    #topBtn svg {
+        width: 20px;
+        height: 20px;
     }
 }
