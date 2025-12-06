@@ -41,7 +41,7 @@ function slugify(text) {
 // Fonction pour charger les composants (header et footer)
 async function loadComponent(componentName) {
     try {
-        const response = await fetch(`/components/${componentName}.html`);
+        const response = await fetch(`./components/${componentName}.html`);
         const html = await response.text();
         
         const placeholder = document.getElementById(`${componentName}-placeholder`);
